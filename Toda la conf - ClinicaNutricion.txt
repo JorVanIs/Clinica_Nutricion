@@ -1,0 +1,663 @@
+
+Clinica_Nutricion
+
+Pagina
+https://jorvanis.github.io/Clinica_Nutricion/
+
+Repositorio
+https://github.com/JorVanIs/Clinica_Nutricion.git
+
+index.html
+cc/index.css
+cc/reset.css
+js/buscar-pacientes.js
+js/calcularIMC.js
+js/eliminar-pacientes.js
+js/filtrar.js
+js/form.js
+css/index.css
+css/reset.css
+
+
+README
+
+
+_------______.........______--------_____-......
+_------______.........______--------_____-......
+
+index.html
+
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8">
+		<title>Buona Vita Nutrición</title>
+		<link rel="icon" href="favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="css/reset.css">
+		<link rel="stylesheet" type="text/css" href="css/index.css">
+
+	</head>
+	<body>
+
+		<header>
+			<div class="container">
+				<h1 class="titulo1">Buona Vita Nutrición</h1>
+			</div>
+		</header>
+		<main>
+			<section class="container">
+				<h2>Mis pacientes</h2>
+				<label for="filtrar-tabla"></label>
+				<input type="text" name="filtro" id="filtrar-tabla" placeholder="Digite nombre paciente">
+				<table>
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Peso(kg)</th>
+							<th>Altura(m)</th>
+							<th>Gordura Corporal(%)</th>
+							<th>IMC</th>
+						</tr>
+					</thead>
+					<tbody id="tabla-pacientes">
+						<tr class="paciente">
+							<td class="info-nombre">Pablo</td>
+							<td class="info-peso">70</td>
+							<td class="info-altura">2.00</td>
+							<td class="info-gordura">10</td>
+							<td class="info-imc">0</td>
+						</tr>
+
+						<tr class="paciente" >
+							<td class="info-nombre">Juan</td>
+							<td class="info-peso">80</td>
+							<td class="info-altura">1.72</td>
+							<td class="info-gordura">40</td>
+							<td class="info-imc">0</td>
+						</tr>
+
+						<tr class="paciente" >
+							<td class="info-nombre">Erica</td>
+							<td class="info-peso">54</td>
+							<td class="info-altura">1.64</td>
+							<td class="info-gordura">14</td>
+							<td class="info-imc">0</td>
+						</tr>
+
+						<tr class="paciente">
+							<td class="info-nombre">Diego</td>
+							<td class="info-peso">85</td>
+							<td class="info-altura">1.73</td>
+							<td class="info-gordura">24</td>
+							<td class="info-imc">0</td>
+						</tr>
+						<tr class="paciente" >
+							<td class="info-nombre">Tatiana</td>
+							<td class="info-peso">46</td>
+							<td class="info-altura">1.55</td>
+							<td class="info-gordura">19</td>
+							<td class="info-imc">0</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<span id="error-ajax" class="invisible">Error en la página de busqueda de pacientes</span>
+
+				<button id="buscar-paciente" class="boton bto-ppal">
+					Buscar Pacientes
+				</button>
+
+			</section>
+		</main>
+
+		<section class="container">
+            <h2 id="titulo-form">Adicionar nuevo paciente</h2>
+			<ul id="mensajes-errores">
+				<li></li>
+				
+			</ul>
+            <form id="form-adicionar" >
+                <div class="grupo">
+                    <label for="nombre">Nombre:</label>
+                    <input id="nombre" name="nombre" type="text" placeholder="digite el nombre del paciente" class="campo">
+                </div>
+                <div class="grupo">
+                    <label for="peso">Peso:</label>
+                    <input id="peso" name="peso" type="text" placeholder="digite el peso del paciente" class="campo campo-medio">
+                </div>
+                <div class="grupo">
+                    <label for="altura">Altura:</label>
+                    <input id="altura" name="altura" type="text" placeholder="digite la altura del paciente" class="campo campo-medio">
+                </div>
+                <div class="grupo">
+                    <label for="gordura">% de Gordura:</label>
+                    <input id="gordura" type="text" placeholder="digite el porcentaje de gordura del paciente" class="campo campo-medio">
+                </div>
+                <button id="adicionar-paciente" class="boton bto-principal">Adicionar</button>
+            </form>
+        </section>
+   <script src="js/calcularIMC.js"></script>
+   <script src="js/form.js"></script>
+   <script src="js/eliminar-pacientes.js"></script>
+   <script src="js/filtrar.js"></script>
+   <script src="js/buscar-pacientes.js"></script>
+
+	</body>
+</html>
+
+_------______.........______--------_____-......
+_------______.........______--------_____-......
+
+cc/index.css
+
+*{
+	box-sizing: border-box;
+ }
+
+body{
+	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+}
+
+header{
+	background-color: #333;
+	height: 3em;
+	color: #FFF;
+	margin-bottom: 1em;
+}
+
+header h1{
+	font-size: 2em;
+	display:inline-block;
+	vertical-align:	middle;
+}
+header h2{
+	font-size: 2em;
+	display:inline-block;
+	vertical-align:	middle;
+}
+
+header .container:before{
+	content: '';
+	display:inline-block;
+	height: 100%;
+	vertical-align:	middle;
+}
+
+.container{
+	width: 60%;
+	height: 100%;
+	margin: 0 auto;
+}
+
+section{
+	margin: 2em 0;
+	overflow: hidden;
+}
+
+section h2{
+	font-size: 3em;
+	display: block;
+	padding-bottom: .5em;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: .5em;
+}
+
+table{
+	width: 100%;
+	margin-bottom : .5em;
+    table-layout: fixed;
+
+}
+
+td, th {
+	padding: .7em;
+	margin: 0;
+	border: 1px solid #ccc;
+	text-align: center;
+}
+
+th{
+	font-weight: bold;
+	background-color: #EEE;
+}
+
+label{
+	color: #555;
+	display: block;
+	margin-bottom: .2em;
+}
+
+.campo{
+	margin: 0;
+	padding-bottom: 1em;
+	width: 100%;
+	border: 1px solid #ccc;
+	padding: .7em;
+	width: 100%;
+}
+
+.campo-medio{
+	display: inline-block;
+	padding-right: .5em;
+}
+
+.grupo{
+	width: 32%;
+	display: inline-block;
+	padding: 10px 0px;
+}
+
+button{
+	padding: .5em 2em;
+	border: 0;
+	border-bottom: 3px solid;
+	font-size: 1.2em;
+	cursor: pointer;
+	margin: 0;
+	margin-top: -3px;
+	color: #fff;
+	background-color:#0c8cd3;
+	border-color: #04324c;
+	width: 20%;
+    display: block;
+    clear: both;
+    margin: 10px 0px;
+
+}
+
+button:active{
+	margin-top:0px;
+	border: 0;
+}
+
+button[disabled=disabled], button:disabled {
+    background-color: gray;
+	border-color: darkgray;
+
+}
+
+.adicionar-paciente{
+    margin-top: 30px;
+}
+
+.campo-invalido{
+	border: 1px solid red;
+}
+
+.paciente-incorrecto{
+	background-color: blueviolet;
+}
+
+#mensajes-errores{
+	color: red;
+}
+
+.fadeOut{
+	opacity: 0;
+	transition: 0.9s;
+}
+
+#filtrar-tabla{
+	width: 150px;
+	height: 35px;
+	margin-bottom: 10px;
+}
+
+.invisible{
+	display: none;
+}
+_------______.........______--------_____-......
+_------______.........______--------_____-......
+
+cc/reset.css
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+_------______.........______--------_____-......
+_------______.........______--------_____-......
+
+js/buscar-pacientes.js
+
+// relacionar el boton con JS
+var butonBuscar = document.querySelector("#buscar-paciente");
+
+// realcionar el click con la carga de pacinentes
+butonBuscar.addEventListener("click", function(){
+    //console.log("Buscando un paciente con el click");
+
+    // necesitamos hacer la requesición que está en la pagina API de pacientes:
+    // https://alura-es-cursos.github.io/api-pacientes/pacientes.json , son datos
+    // listos y accequibles. Para instanciar el objeto necesitamos usar la palabra
+    // new. se visualiza un array separados por comas, por llaves y valor.
+    // son varios los tipos de datos que podemos transitar:JSON, archivos de texto
+    // plano, XML. entre otros.
+    var xhr = new XMLHttpRequest;
+    // acceder al método que obtiene la DB, abriendo con open y obteniendolo de la
+    //url co GET
+    xhr.open("GET","https://alura-es-cursos.github.io/api-pacientes/pacientes.json");
+    // adionar el evento load: cargar la función
+    xhr.addEventListener("load",function(){
+        //definir vble para el error
+        var errorAjax = document.querySelector("#error-ajax");
+        //condición de add paciente sii es exitoso: cod. 200. 
+        if(xhr.status == 200){
+            //si se da el sms de error de acceso a la página se muestra el span
+            //si hay error, sí muestra el span
+            errorAjax.classList.add("invisible");
+            //imprimir nuestro objeto en la consola: trae los datos de la requisición
+            //console.log(xhr.responseText);
+
+            // guardar en una vble la respuesta de la carga o requisición
+            var respuesta = xhr.responseText;
+            // imprimir la respuesta y el tipo de vble.
+            //console.log(respuesta);
+            //console.log(typeof respuesta);
+
+            //para el archivo JSON se convierte en la vble respuesta y se asigna a la 
+            // vble pacientes y el typo de datos de pacientes. Parceados o convertidos
+            // de string en el formato correcto
+            var pacientes = JSON.parse(respuesta);
+            //console.log(pacientes);
+            //console.log(typeof pacientes);
+            //iterar entre todos los pacientes.  llamar la función add pcte definido el "form.js"
+            //
+            pacientes.forEach(function(paciente){
+                adicionarPacienteEnLaTabla(paciente);
+                console.log(paciente);
+            });
+            // si no, queremueva el "invisible" para el que usuario vea el sms
+            //y que me imprima cual es el error y la respuesta            
+        } else {
+            errorAjax.classList.remove("invisible");
+            console.log(xhr.status);
+            console.log(xhr.responseText);
+            }
+    });
+    // luego de abrirlo se re requiere enviarlo
+    xhr.send();
+});
+
+_------______.........______--------_____-......
+_------______.........______--------_____-......
+
+js/calcularIMC.js
+
+var pacientes = document.querySelectorAll(".paciente");
+var titulo1 = document.querySelector(".titulo1");
+titulo1.textContent = "Buena Vida Nutrición";
+
+for(var i = 0; i<pacientes.length; i++){
+    var paciente = pacientes[i];
+
+    var tdPeso = paciente.querySelector(".info-peso");
+    var peso = tdPeso.textContent;
+
+    var tdAltura =  paciente.querySelector(".info-altura");
+    var altura = tdAltura.textContent;
+
+    var tdIMC = paciente.querySelector(".info-imc");
+
+
+    pesoEsValido = validarPeso(peso);
+    alturaEsValida = validarAltura(altura);
+
+    if(!pesoEsValido){
+      console.log("Peso incorrecto");
+      tdIMC.textContent = "Peso Incorrecto";
+      pesoEsValido = false;
+      paciente.style.color = "red"
+      paciente.style.backgroundColor = "yellow"
+      paciente.classList.add("paciente-incorrecto"); //la clase no existe entonces la adiciona a ese objeto.
+
+    }
+
+    if(!alturaEsValida){
+      console.log("Altura incorrecta");
+      tdIMC.textContent = "Altura Incorrecta";
+      alturaEsValida = false;
+      paciente.classList.add("paciente-incorrecto");
+
+    }
+
+    if(pesoEsValido && alturaEsValida){
+      tdIMC.textContent = calcularIMC(peso,altura);
+    }
+
+}    
+
+function calcularIMC(peso,altura){
+  var imc = peso / (altura*altura);
+  return imc.toFixed(2);
+}
+
+function validarPeso (peso){
+  if (peso >= 0 && peso < 1000){
+    return true;
+  } else{
+    return false;
+    }
+}
+
+function validarAltura (altura){
+  if (altura >= 0 && altura < 3.00){
+    return true;
+  } else{
+    return false;
+    }
+}
+_------______.........______--------_____-......
+_------______.........______--------_____-......
+
+js/eliminar-pacientes.js
+
+var tabla = document.querySelector("#tabla-pacientes");
+
+tabla.addEventListener("dblclick", function(event){
+    console.log("Realizó doble click");
+    console.log(event.target.remove);
+    event.target.parentNode.classList.add(".fadeOut");
+    setTimeout(function(){
+        event.target.parentNode.remove();    
+    },1000);
+});
+
+_------______.........______--------_____-......
+_------______.........______--------_____-......
+
+js/filtrar.js
+
+var campoFiltro = document.querySelector("#filtrar-tabla");
+
+campoFiltro.addEventListener("input", function(){
+    console.log(this.value);
+
+    var pacientes = document.querySelectorAll(".paciente");
+    
+    if(this.value.length > 0){
+        console.log("Hay algo digitado.");
+        for (var i=0; i<pacientes.length; i++){
+            var paciente = pacientes[i];
+            var tdNombre = paciente.querySelector(".info-nombre");
+            var nombre = tdNombre.textContent;
+            var expresion = new RegExp(this.value, "i");
+    
+            if (!expresion.test(nombre)){
+                paciente.classList.add("invisible");            
+            } else {
+                paciente.classList.remove("invisible");
+            }
+        }
+    } else {
+        for (var i=0; i<pacientes.length; i++){
+            var paciente = pacientes[i];
+            paciente.classList.remove("invisible");
+
+        }
+    }
+});
+_------______.........______--------_____-......
+_------______.........______--------_____-......
+
+js/form.js
+
+// es el código que conecta nuestro formulario con JS
+var botonAdicionar = document.querySelector("#adicionar-paciente");
+
+botonAdicionar.addEventListener("click",function(event){
+    event.preventDefault();
+
+    var form = document.querySelector("#form-adicionar");
+    var paciente = capturaDatosPaciente(form);    
+
+    var errores = validarPaciente(paciente);
+    
+    if(errores.length > 0){
+        exhibirMensajesErrores(errores);
+        return; 
+    }
+    
+    form.reset ();
+
+    var mensajesErrores = document.querySelector("#mensajes-errores");
+    mensajesErrores.innerHTML = "";
+    
+});
+
+// función para encapsular la instrucción. 1. adiciona un pcte en la tabla, recibe
+// los datos del pcte, contruye la función tr, captura la tabla con doc.Query. y el id
+// de latabla. adiciona el pcte tr a la tabla por el appchil.
+function adicionarPacienteEnLaTabla(paciente){
+    var pacienteTr = construirTr(paciente);
+    // Asigno todos los Tr creados en pacienteTr a la tabla. Capturo la tabla
+    var tabla = document.querySelector("#tabla-pacientes");
+    // se adiciona el paciente tr a la tabla
+    tabla.appendChild(pacienteTr);
+}
+
+// calcula los valores de los input a las variables. Datos del formulario
+function capturaDatosPaciente (form){
+    var paciente = {
+        nombre: form.nombre.value,
+        peso: form.peso.value,
+        altura: form.altura.value,
+        gordura: form.gordura.value,
+        imc: calcularIMC(form.peso.value,form.altura.value)
+    }
+    return paciente;
+}
+
+function construirTr (paciente) {    
+    // Creo la var y la clases para Tr
+    var pacienteTr = document.createElement("tr");
+    pacienteTr.classList.add("paciente");
+    // la función construirTd (clases y detalles) y asigno hijosTd
+    pacienteTr.appendChild(construirTd(paciente.nombre,"info-nombre"));
+    pacienteTr.appendChild(construirTd(paciente.peso,"info-peso"));    
+    pacienteTr.appendChild(construirTd(paciente.altura,"info-altura"));
+    pacienteTr.appendChild(construirTd(paciente.gordura,"info-gordura"));
+    pacienteTr.appendChild(construirTd(paciente.imc,"info-imc"));
+
+    return pacienteTr;
+}
+
+function construirTd (dato,clase) {
+    // Creo var Td, las clases y datos o valores de las columnas Td creadas
+    var td = document.createElement("td");
+    td.classList.add(clase);
+    td.textContent = dato;
+    return td;
+}
+
+function validarPaciente (paciente){
+    var errores = [];
+    if (paciente.nombre.length == 0){
+        errores.push("El nombre no puede estar vacío");
+    }
+    if (paciente.peso.length == 0){
+        errores.push("El Peso no puede estar vacío");
+    }
+    if (paciente.altura.length == 0){
+        errores.push("La altura no puede estar vacía");        
+    }
+    if (paciente.gordura.length == 0){
+        errores.push("El % de gordura no puede estar vacío");
+    }
+    if (!validarPeso (paciente.peso)){
+        errores.push("Peso es mas que incorrecto");
+    }
+    if (!validarAltura (paciente.altura)){
+        errores.push("La altura es mas que incorrecto");
+    }
+    return errores;
+}
+
+function exhibirMensajesErrores(errores){
+    var ul = document.querySelector("#mensajes-errores");
+    ul.innerHTML = "";
+    errores.forEach(function(error) {
+        var li = document.createElement("li");
+        li.textContent = error;
+        ul.appendChild(li);
+    });    
+}
+_------______.........______--------_____-......
+_------______.........______--------_____-......
+
+
+
+
+
+_------______.........______--------_____-......
+_------______.........______--------_____-......
+
+
+
+_------______.........______--------_____-......
+_------______.........______--------_____-......
